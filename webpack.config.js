@@ -39,16 +39,8 @@ var webpackConfig = {
                 use : extractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        { loader: 'css-loader' },
-                        'postcss-loader'
+                        { loader: 'css-loader' }
                     ]
-                })
-            },
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
                 })
             },
             {
@@ -60,10 +52,6 @@ var webpackConfig = {
                         outputPath: 'resource/'
                     }
                 }]
-            },
-            {
-                test: /\.(html|htm)$/i,
-                use: ['html-withimg-loader']
             },
             {
                 test: /\.(js|jsx)$/,
@@ -107,10 +95,6 @@ var webpackConfig = {
         new htmlPlugin(getHtml('index', '主页')),
         //单独打包css
         new extractTextPlugin('css/[name].css'),
-        //消除未使用的css
-        new PurifyCSSPlugin({
-            paths: glob.sync(path.join(__dirname, 'src/*.html')),
-        }),
         //全局使用第三方类库
         new webpack.ProvidePlugin({
             $: 'jquery'
